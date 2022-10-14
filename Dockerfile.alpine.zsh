@@ -1,8 +1,8 @@
-FROM tsl0922/ttyd
+FROM tsl0922/ttyd:alpine
 
 EXPOSE 7681
 
-RUN apt-get update && apt-get upgrade -y && apt-get install -y \
+RUN apk update && apk upgrade -y && apk add -y \
       git \
       zsh \
       curl \
