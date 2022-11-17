@@ -62,7 +62,7 @@ jobs:
         push: true
         tags: ${{ env.ALPINE_TAG }}
 
-      name: build/push docker image (golang alpine)
+    - name: build/push docker image (golang alpine)
       uses: docker/build-push-action@v3
       with:
         context: .
