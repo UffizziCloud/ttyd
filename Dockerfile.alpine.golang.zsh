@@ -5,6 +5,7 @@ COPY ./dist/${TARGETARCH}/ttyd /usr/bin/ttyd
 RUN apk add --no-cache bash tini
 
 EXPOSE 7681
+WORKDIR /root
 
 RUN apk update && apk upgrade && apk add \
       git \
@@ -25,4 +26,4 @@ RUN apk update && apk upgrade && apk add \
 
 ENTRYPOINT ["/sbin/tini", "--"]
 
-CMD ["ttyd", "/bin/zsh"]
+# CMD ["ttyd", "/bin/zsh"]
