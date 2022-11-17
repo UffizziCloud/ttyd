@@ -1,4 +1,8 @@
-FROM tsl0922/ttyd:alpine
+FROM alpine
+
+ARG TARGETARCH
+COPY ./dist/${TARGETARCH}/ttyd /usr/bin/ttyd
+RUN apk add --no-cache bash tini
 
 EXPOSE 7681
 
