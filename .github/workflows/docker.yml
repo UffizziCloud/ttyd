@@ -43,6 +43,7 @@ jobs:
             echo "ALPINE_TAG=uffizzi/ttyd:alpine" >> $GITHUB_ENV
             echo "GOLANG118_ALPINE_TAG=uffizzi/ttyd:golang1.18-alpine" >> $GITHUB_ENV
         esac
+
     - name: build/push docker image
       uses: docker/build-push-action@v3
       with:
@@ -51,6 +52,7 @@ jobs:
         platforms: linux/amd64,linux/arm/v7,linux/arm64,linux/s390x
         push: true
         tags: ${{ env.DOCKER_TAG }}
+
     - name: build/push docker image (alpine)
       uses: docker/build-push-action@v3
       with:
@@ -60,7 +62,7 @@ jobs:
         push: true
         tags: ${{ env.ALPINE_TAG }}
 
-      name: build/push docker image (alpine)
+      name: build/push docker image (golang alpine)
       uses: docker/build-push-action@v3
       with:
         context: .
