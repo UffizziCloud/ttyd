@@ -34,12 +34,14 @@ jobs:
           case $GITHUB_REF in
             refs/tags/*)
               TAG_NAME=${GITHUB_REF#refs/tags/}
-              echo "DOCKER_TAG=tsl0922/ttyd:${TAG_NAME}" >> $GITHUB_ENV
-              echo "ALPINE_TAG=tsl0922/ttyd:${TAG_NAME}-alpine" >> $GITHUB_ENV
+              echo "DOCKER_TAG=uffizzi/ttyd:${TAG_NAME}" >> $GITHUB_ENV
+              echo "ALPINE_TAG=uffizzi/ttyd:${TAG_NAME}-alpine" >> $GITHUB_ENV
+              echo "GOLANG118_ALPINE_TAG=uffizzi/ttyd:${TAG_NAME}-golang1.18-alpine" >> $GITHUB_ENV
               ;;
             *)
-              echo "DOCKER_TAG=tsl0922/ttyd:latest" >> $GITHUB_ENV
-              echo "ALPINE_TAG=tsl0922/ttyd:alpine" >> $GITHUB_ENV
+              echo "DOCKER_TAG=uffizzi/ttyd:latest" >> $GITHUB_ENV
+              echo "ALPINE_TAG=uffizzi/ttyd:alpine" >> $GITHUB_ENV
+              echo "GOLANG118_ALPINE_TAG=uffizzi/ttyd:golang1.18-alpine" >> $GITHUB_ENV
           esac
       - name: build/push docker image
         uses: docker/build-push-action@v3
@@ -57,3 +59,13 @@ jobs:
           platforms: linux/amd64,linux/arm/v7,linux/arm64,linux/s390x
           push: true
           tags: ${{ env.ALPINE_TAG }}
+
+       name: build/push docker image (alpine)
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./Dockerfile.alpine.golang.zsh
+          platforms: linux/amd64,linux/arm/v7,linux/arm64,linux/s390x
+          push: true
+          tags: ${{ env.GOLANG118_ALPINE_TAG }}
+
