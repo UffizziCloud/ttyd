@@ -1,4 +1,4 @@
-FROM node:16
+FROM node:16-buster
 
 ARG TARGETARCH
 COPY ./dist/${TARGETARCH}/ttyd /usr/bin/ttyd
