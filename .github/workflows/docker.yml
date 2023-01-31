@@ -36,25 +36,25 @@ jobs:
             TAG_NAME=${GITHUB_REF#refs/tags/}
             echo "UBUNTU_TAG=uffizzi/ttyd:${TAG_NAME}-ubuntu" >> $GITHUB_ENV
             echo "ALPINE_TAG=uffizzi/ttyd:${TAG_NAME}-alpine" >> $GITHUB_ENV
+            echo "NODEJS_TAG=uffizzi/ttyd:${TAG_NAME}-nodejs" >> $GITHUB_ENV
             echo "GOLANG118_ALPINE_TAG=uffizzi/ttyd:${TAG_NAME}-golang1.18-alpine" >> $GITHUB_ENV
             ;;
           *)
             echo "DOCKER_TAG=uffizzi/ttyd:latest" >> $GITHUB_ENV
             echo "UBUNTU_TAG=uffizzi/ttyd:ubuntu" >> $GITHUB_ENV
             echo "ALPINE_TAG=uffizzi/ttyd:alpine" >> $GITHUB_ENV
+            echo "NODEJS_TAG=uffizzi/ttyd:nodejs" >> $GITHUB_ENV
             echo "GOLANG118_ALPINE_TAG=uffizzi/ttyd:golang1.18-alpine" >> $GITHUB_ENV
         esac
 
-    # - name: build/push docker image
-    #   uses: docker/build-push-action@v3
-    #   with:
-    #     context: .
-    #     file: ./Dockerfile.zsh
-    #     platforms: linux/amd64,linux/arm/v7,linux/arm64,linux/s390x
-    #     push: true
-    #     tags: | 
-    #       ${{ env.DOCKER_TAG }}
-    #       ${{ env.UBUNTU_TAG }}
+    - name: build/push docker image (nodejs)
+      uses: docker/build-push-action@v3
+      with:
+        context: .
+        file: ./Dockerfile.nodejs.zsh
+        platforms: linux/amd64,linux/arm/v7,linux/arm64,linux/s390x
+        push: true
+        tags: ${{ env.NODEJS_TAG }}
 
     - name: build/push docker image (alpine)
       uses: docker/build-push-action@v3
