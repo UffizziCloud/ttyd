@@ -36,14 +36,14 @@ jobs:
             TAG_NAME=${GITHUB_REF#refs/tags/}
             echo "UBUNTU_TAG=uffizzi/ttyd:${TAG_NAME}-ubuntu" >> $GITHUB_ENV
             echo "ALPINE_TAG=uffizzi/ttyd:${TAG_NAME}-alpine" >> $GITHUB_ENV
-            echo "NODEJS_TAG=uffizzi/ttyd:${TAG_NAME}-nodejs" >> $GITHUB_ENV
+            echo "NODEJS_TAG=uffizzi/ttyd:${TAG_NAME}-nodejs-16" >> $GITHUB_ENV
             echo "GOLANG118_ALPINE_TAG=uffizzi/ttyd:${TAG_NAME}-golang1.18-alpine" >> $GITHUB_ENV
             ;;
           *)
             echo "DOCKER_TAG=uffizzi/ttyd:latest" >> $GITHUB_ENV
             echo "UBUNTU_TAG=uffizzi/ttyd:ubuntu" >> $GITHUB_ENV
             echo "ALPINE_TAG=uffizzi/ttyd:alpine" >> $GITHUB_ENV
-            echo "NODEJS_TAG=uffizzi/ttyd:nodejs" >> $GITHUB_ENV
+            echo "NODEJS_16_TAG=uffizzi/ttyd:nodejs-16" >> $GITHUB_ENV
             echo "GOLANG118_ALPINE_TAG=uffizzi/ttyd:golang1.18-alpine" >> $GITHUB_ENV
         esac
 
@@ -51,10 +51,10 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         context: .
-        file: ./Dockerfile.nodejs.zsh
+        file: ./Dockerfile.nodejs16.zsh
         platforms: linux/amd64,linux/arm/v7,linux/arm64,linux/s390x
         push: true
-        tags: ${{ env.NODEJS_TAG }}
+        tags: ${{ env.NODEJS_16_TAG }}
 
     - name: build/push docker image (alpine)
       uses: docker/build-push-action@v3
